@@ -689,4 +689,134 @@
           <img src="${song.thumbnail}" alt="cover" loading="lazy" />
           <div class="song-info">
             <div class="song-title">${song.title}</div>
-            <div class="song-artist">${song.artist} &bull; ${formatTime(song.duration)}<
+            <div class="song-artist">${song.artist} &bull; ${formatTime(song.duration)}</div>
+          </div>
+          <div class="song-actions">
+            <button class="icon-btn ${liked ? "liked" : ""}" data-action="like" title="Like">${liked ? ICON_HEART_FULL : ICON_HEART_EMPTY}</button>
+            <a class="icon-btn" href="${API_BASE}/api/play/${song.id}" target="_blank" download="${song.title}.m4a" data-action="download" title="Download">${ICON_DL}</a>
+          </div>
+        `;
+
+        div.addEventListener("click", (e) => {
+          if (e.target.closest('[data-action="like"]')) {
+            toggleLike(song, e);
+            return;
+          }
+          if (e.target.closest('[data-action="download"]')) {
+            e.stopPropagation();
+            return;
+          }
+          activeQueue = [...list];
+          playSong(i);
+        });
+
+        frag.appendChild(div);
+      });
+
+      songList.innerHTML = "";
+      songList.appendChild(frag);
+    }
+
+    function playSong(index) {
+      if (index < 0 || index >= activeQueue.length) return;
+      currentIndex = index;
+      const song = activeQueue[index];
+      currentSong = song;
+
+      playerBar.classList.add("visible");
+      playerThumb.src = song.thumbnail;
+      playerTitle.textContent = song.title;
+      playerArtist.textContent = song.artist;
+      playerDownloadBtn.href = `${API_BASE}/api/play/${song.id}`;
+      playerDownloadBtn.setAttribute("download", `${song.title}.m4a`);
+      playPauseBtn.innerHTML = ICON_LOAD;
+
+      updatePlayerLikeUI();
+      renderCurrentTab();
+
+      audio.src = `${API_BASE}/api/play/${song.id}`;
+      audio.play().then(() => {
+        playPauseBtn.innerHTML = ICON_PAUSE;
+        if ("mediaSession" in navigator) {
+          navigator.mediaSession.metadata = new MediaMetadata({
+            title: song.title,
+            artist: song.artist,
+            album: "LISTEN WITH SK",
+            artwork: [{ src: song.thumbnail, sizes: "500x500", type: "image/jpeg" }]
+          });
+          try {
+            navigator.mediaSession.setActionHandler("play", () => audio.play());
+            navigator.mediaSession.setActionHandler("pause", () => audio.pause());
+            navigator.mediaSession.setActionHandler("previoustrack", playPrev);
+            navigator.mediaSession.setActionHandler("nexttrack", playNext);
+          } catch (e) {}
+        }
+      }).catch(() => {
+        playPauseBtn.innerHTML = ICON_PLAY;
+      });
+    }
+
+    function playNext() {
+      if (!activeQueue.length) return;
+      playSong((currentIndex + 1) % activeQueue.length);
+    }
+
+    function playPrev() {
+      if (!activeQueue.length) return;
+      playSong((currentIndex - 1 + activeQueue.length) % activeQueue.length);
+    }
+
+    searchBtn.addEventListener("click", () => searchSongs());
+    searchInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") searchSongs();
+    });
+
+    tabDiscover.addEventListener("click", () => switchTab("discover"));
+    tabLiked.addEventListener("click", () => switchTab("liked"));
+
+    chipsEl.addEventListener("click", (e) => {
+      if (e.target.classList.contains("chip")) {
+        searchSongs(e.target.dataset.q);
+      }
+    });
+
+    playerLikeBtn.addEventListener("click", () => {
+      if (currentSong) toggleLike(currentSong);
+    });
+
+    playPauseBtn.addEventListener("click", () => {
+      if (!audio.src) return;
+      audio.paused ? audio.play() : audio.pause();
+    });
+
+    document.getElementById("prevBtn").addEventListener("click", playPrev);
+    document.getElementById("nextBtn").addEventListener("click", playNext);
+    document.getElementById("loopBtn").addEventListener("click", (e) => {
+      isLooping = !isLooping;
+      e.currentTarget.classList.toggle("active-toggle", isLooping);
+    });
+
+    audio.addEventListener("play", () => { playPauseBtn.innerHTML = ICON_PAUSE; });
+    audio.addEventListener("pause", () => { playPauseBtn.innerHTML = ICON_PLAY; });
+    audio.addEventListener("timeupdate", () => {
+      if (!audio.duration) return;
+      seekBar.max = Math.floor(audio.duration);
+      seekBar.value = Math.floor(audio.currentTime);
+      currentTimeEl.textContent = formatTime(audio.currentTime);
+      totalTimeEl.textContent = formatTime(audio.duration);
+    });
+    seekBar.addEventListener("input", () => { audio.currentTime = seekBar.value; });
+    audio.addEventListener("ended", () => {
+      if (isLooping) {
+        audio.currentTime = 0;
+        audio.play();
+      } else {
+        playNext();
+      }
+    });
+
+    updateLikedCount();
+    searchSongs("Trending Hindi Songs");
+  </script>
+</body>
+</html>
