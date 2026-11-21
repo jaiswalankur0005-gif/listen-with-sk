@@ -7,6 +7,11 @@ from flask import Flask, request, jsonify, redirect, send_from_directory
 
 app = Flask(__name__)
 
+@app.after_request
+def add_cors(response):
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    return response
+
 AUDIO_CACHE = {}
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
@@ -67,7 +72,6 @@ def search():
 
             AUDIO_CACHE[song_id] = audio_url
 
-            # Artist name nikalo
             artists_list = (more.get("artistMap") or {}).get("primary_artists") or []
             if artists_list:
                 artist = ", ".join(a.get("name", "") for a in artists_list if a.get("name"))
@@ -120,4 +124,4 @@ def play(song_id):
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
-    
+            
