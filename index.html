@@ -214,7 +214,7 @@
       playerArtist.textContent = song.artist;
       playPauseBtn.textContent = "⏳";
 
-      audio.src = `/api/play/${song.id}`;
+      audio.src = `/api/play/${song.id}?title=${encodeURIComponent(song.title)}`;
       audio.play().then(() => {
         playPauseBtn.textContent = "⏸";
         if ("mediaSession" in navigator) {
@@ -266,3 +266,4 @@
   </script>
 </body>
 </html>
+
