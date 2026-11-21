@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#0d0d12" />
+  <title>LISTEN WITH SK</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%231db954'/%3E%3Cstop offset='100%25' stop-color='%2300e676'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='%2312121a'/%3E%3Cpath d='M16 36v-4a16 16 0 0 1 32 0v4' fill='none' stroke='url(%23g)' stroke-width='4.5' stroke-linecap='round'/%3E%3Crect x='11' y='33' width='8' height='15' rx='4' fill='url(%23g)'/%3E%3Crect x='45' y='33' width='8' height='15' rx='4' fill='url(%23g)'/%3E%3Ctext x='32' y='45' text-anchor='middle' font-family='Arial,sans-serif' font-weight='900' font-size='15' fill='%23ffffff'%3ESK%3C/text%3E%3C/svg%3E" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
+    body { background: #0d0d12; color: #fff; min-height: 100vh; padding-bottom: 165px; }
+    header { position: sticky; top: 0; z-index: 10; background: #0d0d12; padding: 14px 16px 12px; border-bottom: 1px solid #1f1f2b; }
+    .brand { display: flex; justify-content: space-between; align-items: center; max-width: 720px; margin: 0 auto 12px; }
+    .logo-wrap { display: flex; align-items: center; gap: 10px; }
+    .logo-svg { width: 36px; height: 36px; border-radius: 10px; }
+    .brand-text h1 { font-size: 17px; font-weight: 800; letter-spacing: 0.6px; }
+    .brand-text h1 span { color: #1db954; }
+    .brand-sub { font-size: 10px; color: #8a8aa3; letter-spacing: 1px; text-transform: uppercase; }
+    .badge { font-size: 11px; background: #14291c; color: #1db954; padding: 4px 10px; border-radius: 20px; font-weight: 700; }
+    .search-box { display: flex; gap: 8px; max-width: 720px; margin: 0 auto; }
+    .search-box input { flex: 1; padding: 11px 16px; border-radius: 24px; border: 1px solid #2a2a38; background: #181822; color: #fff; font-size: 15px; outline: none; }
+    .search-box input:focus { border-color: #1db954; }
+    .search-box button { padding: 0 20px; border-radius: 24px; border: none; background: #1db954; color: #000; font-weight: 700; font-size: 14px; cursor: pointer; }
+    .chips { display: flex; gap: 8px; overflow-x: auto; padding: 12px 16px 4px; scrollbar-width: none; max-width: 720px; margin: 0 auto; }
+    .chips::-webkit-scrollbar { display: none; }
+    .chip { background: #181822; color: #d1d1e0; border: 1px solid #262636; padding: 6px 14px; border-radius: 20px; font-size: 12px; white-space: nowrap; cursor: pointer; }
+    .container { max-width: 720px; margin: 0 auto; padding: 10px 16px; }
+    #status { color: #8a8aa3; margin: 10px 0 14px; font-size: 13px; }
+    .song-list { display: flex; flex-direction: column; gap: 8px; }
+    .song-item { display: flex; align-items: center; gap: 12px; padding: 8px 10px; background: #161620; border-radius: 12px; cursor: pointer; border: 1px solid transparent; }
+    .song-item.active { border-color: #1db954; background: #132419; }
+    .song-item img { width: 54px; height: 54px; border-radius: 8px; object-fit: cover; background: #242433; flex-shrink: 0; }
+    .song-info { flex: 1; min-width: 0; }
+    .song-title { font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 3px; }
+    .song-item.active .song-title { color: #1db954; }
+    .song-artist { font-size: 12px; color: #9494ad; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .song-duration { font-size: 12px; color: #777790; flex-shrink: 0; }
+    .player { position: fixed; bottom: 0; left: 0; right: 0; background: #15151e; border-top: 1px solid #262636; padding: 12px 16px 16px; z-index: 20; display: none; }
+    .player.visible { display: block; }
+    .player-inner { max-width: 720px; margin: 0 auto; }
+    .now-playing { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+    .now-playing img { width: 44px; height: 44px; border-radius: 8px; object-fit: cover; background: #242433; }
+    .now-meta { flex: 1; min-width: 0; }
+    .now-title { font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .now-artist { font-size: 12px; color: #9494ad; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .progress-wrap { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+    .time { font-size: 11px; color: #9494ad; min-width: 34px; text-align: center; }
+    input[type="range"] { flex: 1; accent-color: #1db954; height: 4px; cursor: pointer; }
+    .controls { display: flex; justify-content: center; align-items: center; gap: 28px; }
+    .ctrl-btn { background: none; border: none; color: #fff; font-size: 20px; cursor: pointer; padding: 4px; }
+    .play-btn { width: 42px; height: 42px; border-radius: 50%; background: #1db954; color: #000; font-size: 17px; font-weight: bold; display: flex; align-items: center; justify-content: center; }
+    .ctrl-btn.active-toggle { color: #1db954; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">
+      <div class="logo-wrap">
+        <svg class="logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+          <defs>
+            <linearGradient id="skGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#1db954" />
+              <stop offset="100%" stop-color="#00e676" />
+            </linearGradient>
+          </defs>
+          <rect width="64" height="64" rx="16" fill="#171722" stroke="#262636" stroke-width="2" />
+          <path d="M16 35v-3a16 16 0 0 1 32 0v3" fill="none" stroke="url(#skGrad)" stroke-width="4.5" stroke-linecap="round" />
+          <rect x="11" y="32" width="8" height="16" rx="4" fill="url(#skGrad)" />
+          <rect x="45" y="32" width="8" height="16" rx="4" fill="url(#skGrad)" />
+          <text x="32" y="45" text-anchor="middle" font-family="Arial, sans-serif" font-weight="900" font-size="14" fill="#ffffff">SK</text>
+        </svg>
+        <div class="brand-text">
+          <h1>LISTEN WITH <span>SK</span></h1>
+          <div class="brand-sub">Own YouTube Engine</div>
+        </div>
+      </div>
+      <span class="badge" id="serverBadge">Online</span>
+    </div>
+
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="YouTube par koi bhi gaana search karein..." />
+      <button id="searchBtn">Search</button>
+    </div>
+  </header>
+
+  <div class="chips" id="chips">
+    <button class="chip" data-q="Arijit Singh hits">Arijit Singh</button>
+    <button class="chip" data-q="Sidhu Moose Wala songs">Sidhu Moose Wala</button>
+    <button class="chip" data-q="Diljit Dosanjh songs">Diljit Dosanjh</button>
+    <button class="chip" data-q="Bollywood new songs 2026">New Bollywood</button>
+    <button class="chip" data-q="Hindi Lofi songs">Hindi Lofi</button>
+  </div>
+
+  <main class="container">
+    <div id="status">Koi bhi gaana search karein ya upar se select karein</div>
+    <div class="song-list" id="songList"></div>
+  </main>
+
+  <div class="player" id="playerBar">
+    <div class="player-inner">
+      <div class="now-playing">
+        <img id="playerThumb" src="" alt="Cover" />
+        <div class="now-meta">
+          <div class="now-title" id="playerTitle">No song selected</div>
+          <div class="now-artist" id="playerArtist">...</div>
+        </div>
+      </div>
+      <div class="progress-wrap">
+        <span class="time" id="currentTime">0:00</span>
+        <input type="range" id="seekBar" value="0" min="0" max="100" step="1" />
+        <span class="time" id="totalTime">0:00</span>
+      </div>
+      <div class="controls">
+        <button class="ctrl-btn" id="loopBtn">🔁</button>
+        <button class="ctrl-btn" id="prevBtn">⏮</button>
+        <button class="ctrl-btn play-btn" id="playPauseBtn">▶</button>
+        <button class="ctrl-btn" id="nextBtn">⏭</button>
+      </div>
+    </div>
+  </div>
+
+  <audio id="audio" preload="auto"></audio>
+
+  <script>
+    let playlist = [];
+    let currentIndex = -1;
+    let isLooping = false;
+
+    const audio = document.getElementById("audio");
+    const searchInput = document.getElementById("searchInput");
+    const searchBtn = document.getElementById("searchBtn");
+    const songList = document.getElementById("songList");
+    const statusEl = document.getElementById("status");
+    const serverBadge = document.getElementById("serverBadge");
+
+    const playerBar = document.getElementById("playerBar");
+    const playerThumb = document.getElementById("playerThumb");
+    const playerTitle = document.getElementById("playerTitle");
+    const playerArtist = document.getElementById("playerArtist");
+    const playPauseBtn = document.getElementById("playPauseBtn");
+    const seekBar = document.getElementById("seekBar");
+    const currentTimeEl = document.getElementById("currentTime");
+    const totalTimeEl = document.getElementById("totalTime");
+
+    function formatTime(sec) {
+      if (!sec || isNaN(sec) || sec < 0) return "0:00";
+      const m = Math.floor(sec / 60);
+      const s = Math.floor(sec % 60);
+      return `${m}:${s < 10 ? "0" : ""}${s}`;
+    }
+
+    async function searchSongs(customQuery) {
+      const q = (customQuery || searchInput.value).trim();
+      if (!q) return;
+      if (customQuery) searchInput.value = customQuery;
+
+      statusEl.textContent = `"${q}" search ho raha hai...`;
+      serverBadge.textContent = "Searching...";
+
+      try {
+        const res = await fetch(`/api/search?q=${encodeURIComponent(q)}`);
+        const data = await res.json();
+        if (!Array.isArray(data) || !data.length) {
+          statusEl.textContent = "Koi gaana nahi mila.";
+          serverBadge.textContent = "Online";
+          return;
+        }
+        playlist = data;
+        currentIndex = -1;
+        statusEl.textContent = `${playlist.length} gaane mile`;
+        serverBadge.textContent = "Online";
+        renderPlaylist();
+      } catch (err) {
+        statusEl.textContent = "Server wake up ho raha hai, 10 second baad dubara try karein.";
+        serverBadge.textContent = "Waking...";
+      }
+    }
+
+    function renderPlaylist() {
+      const frag = document.createDocumentFragment();
+      playlist.forEach((song, i) => {
+        const div = document.createElement("div");
+        div.className = "song-item";
+        div.dataset.index = i;
+        div.innerHTML = `
+          <img src="${song.thumbnail}" alt="cover" loading="lazy" />
+          <div class="song-info">
+            <div class="song-title">${song.title}</div>
+            <div class="song-artist">${song.artist}</div>
+          </div>
+          <div class="song-duration">${formatTime(song.duration)}</div>
+        `;
+        div.addEventListener("click", () => playSong(i));
+        frag.appendChild(div);
+      });
+      songList.innerHTML = "";
+      songList.appendChild(frag);
+    }
+
+    function playSong(index) {
+      if (index < 0 || index >= playlist.length) return;
+      currentIndex = index;
+      const song = playlist[index];
+
+      const prev = songList.querySelector(".song-item.active");
+      if (prev) prev.classList.remove("active");
+      const curr = songList.querySelector(`.song-item[data-index="${index}"]`);
+      if (curr) curr.classList.add("active");
+
+      playerBar.classList.add("visible");
+      playerThumb.src = song.thumbnail;
+      playerTitle.textContent = song.title;
+      playerArtist.textContent = song.artist;
+      playPauseBtn.textContent = "⏳";
+
+      audio.src = `/api/play/${song.id}`;
+      audio.play().then(() => {
+        playPauseBtn.textContent = "⏸";
+        if ("mediaSession" in navigator) {
+          navigator.mediaSession.metadata = new MediaMetadata({
+            title: song.title,
+            artist: song.artist,
+            album: "LISTEN WITH SK",
+            artwork: [{ src: song.thumbnail, sizes: "480x360", type: "image/jpeg" }]
+          });
+          navigator.mediaSession.setActionHandler("play", () => audio.play());
+          navigator.mediaSession.setActionHandler("pause", () => audio.pause());
+          navigator.mediaSession.setActionHandler("previoustrack", () => playSong((currentIndex - 1 + playlist.length) % playlist.length));
+          navigator.mediaSession.setActionHandler("nexttrack", () => playSong((currentIndex + 1) % playlist.length));
+        }
+      }).catch(() => { playPauseBtn.textContent = "▶"; });
+    }
+
+    searchBtn.addEventListener("click", () => searchSongs());
+    searchInput.addEventListener("keydown", (e) => { if (e.key === "Enter") searchSongs(); });
+    document.getElementById("chips").addEventListener("click", (e) => {
+      if (e.target.classList.contains("chip")) searchSongs(e.target.dataset.q);
+    });
+
+    playPauseBtn.addEventListener("click", () => {
+      if (!audio.src) return;
+      audio.paused ? audio.play() : audio.pause();
+    });
+    document.getElementById("prevBtn").addEventListener("click", () => playSong((currentIndex - 1 + playlist.length) % playlist.length));
+    document.getElementById("nextBtn").addEventListener("click", () => playSong((currentIndex + 1) % playlist.length));
+    document.getElementById("loopBtn").addEventListener("click", (e) => {
+      isLooping = !isLooping;
+      e.target.classList.toggle("active-toggle", isLooping);
+    });
+
+    audio.addEventListener("play", () => { playPauseBtn.textContent = "⏸"; });
+    audio.addEventListener("pause", () => { playPauseBtn.textContent = "▶"; });
+    audio.addEventListener("timeupdate", () => {
+      if (!audio.duration) return;
+      seekBar.max = Math.floor(audio.duration);
+      seekBar.value = Math.floor(audio.currentTime);
+      currentTimeEl.textContent = formatTime(audio.currentTime);
+      totalTimeEl.textContent = formatTime(audio.duration);
+    });
+    seekBar.addEventListener("input", () => { audio.currentTime = seekBar.value; });
+    audio.addEventListener("ended", () => {
+      if (isLooping) { audio.currentTime = 0; audio.play(); }
+      else { playSong((currentIndex + 1) % playlist.length); }
+    });
+  </script>
+</body>
+</html>
