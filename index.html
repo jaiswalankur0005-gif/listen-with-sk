@@ -3,100 +3,517 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <meta name="theme-color" content="#0d0d12" />
-  <title>LISTEN WITH SK</title>
+  <meta name="theme-color" content="#09090d" />
+  <title>LISTEN WITH SK - HD Music</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%231db954'/%3E%3Cstop offset='100%25' stop-color='%2300e676'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='%2312121a'/%3E%3Cpath d='M16 36v-4a16 16 0 0 1 32 0v4' fill='none' stroke='url(%23g)' stroke-width='4.5' stroke-linecap='round'/%3E%3Crect x='11' y='33' width='8' height='15' rx='4' fill='url(%23g)'/%3E%3Crect x='45' y='33' width='8' height='15' rx='4' fill='url(%23g)'/%3E%3Ctext x='32' y='45' text-anchor='middle' font-family='Arial,sans-serif' font-weight='900' font-size='15' fill='%23ffffff'%3ESK%3C/text%3E%3C/svg%3E" />
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
-    body { background: #0d0d12; color: #fff; min-height: 100vh; padding-bottom: 165px; }
-    header { position: sticky; top: 0; z-index: 10; background: #0d0d12; padding: 14px 16px 12px; border-bottom: 1px solid #1f1f2b; }
-    .brand { display: flex; justify-content: space-between; align-items: center; max-width: 720px; margin: 0 auto 12px; }
-    .logo-wrap { display: flex; align-items: center; gap: 10px; }
-    .logo-svg { width: 36px; height: 36px; border-radius: 10px; }
-    .brand-text h1 { font-size: 17px; font-weight: 800; letter-spacing: 0.6px; }
-    .brand-text h1 span { color: #1db954; }
-    .brand-sub { font-size: 10px; color: #8a8aa3; letter-spacing: 1px; text-transform: uppercase; }
-    .badge { font-size: 11px; background: #14291c; color: #1db954; padding: 4px 10px; border-radius: 20px; font-weight: 700; }
-    .search-box { display: flex; gap: 8px; max-width: 720px; margin: 0 auto; }
-    .search-box input { flex: 1; padding: 11px 16px; border-radius: 24px; border: 1px solid #2a2a38; background: #181822; color: #fff; font-size: 15px; outline: none; }
-    .search-box input:focus { border-color: #1db954; }
-    .search-box button { padding: 0 20px; border-radius: 24px; border: none; background: #1db954; color: #000; font-weight: 700; font-size: 14px; cursor: pointer; }
-    .chips { display: flex; gap: 8px; overflow-x: auto; padding: 12px 16px 4px; scrollbar-width: none; max-width: 720px; margin: 0 auto; }
-    .chips::-webkit-scrollbar { display: none; }
-    .chip { background: #181822; color: #d1d1e0; border: 1px solid #262636; padding: 6px 14px; border-radius: 20px; font-size: 12px; white-space: nowrap; cursor: pointer; }
-    .container { max-width: 720px; margin: 0 auto; padding: 10px 16px; }
-    #status { color: #8a8aa3; margin: 10px 0 14px; font-size: 13px; }
-    .song-list { display: flex; flex-direction: column; gap: 8px; }
-    .song-item { display: flex; align-items: center; gap: 12px; padding: 8px 10px; background: #161620; border-radius: 12px; cursor: pointer; border: 1px solid transparent; }
-    .song-item.active { border-color: #1db954; background: #132419; }
-    .song-item img { width: 54px; height: 54px; border-radius: 8px; object-fit: cover; background: #242433; flex-shrink: 0; }
-    .song-info { flex: 1; min-width: 0; }
-    .song-title { font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 3px; }
-    .song-item.active .song-title { color: #1db954; }
-    .song-artist { font-size: 12px; color: #9494ad; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .song-duration { font-size: 12px; color: #777790; flex-shrink: 0; }
-    .player { position: fixed; bottom: 0; left: 0; right: 0; background: #15151e; border-top: 1px solid #262636; padding: 12px 16px 16px; z-index: 20; display: none; }
-    .player.visible { display: block; }
-    .player-inner { max-width: 720px; margin: 0 auto; }
-    .now-playing { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
-    .now-playing img { width: 44px; height: 44px; border-radius: 8px; object-fit: cover; background: #242433; }
-    .now-meta { flex: 1; min-width: 0; }
-    .now-title { font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .now-artist { font-size: 12px; color: #9494ad; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .progress-wrap { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
-    .time { font-size: 11px; color: #9494ad; min-width: 34px; text-align: center; }
-    input[type="range"] { flex: 1; accent-color: #1db954; height: 4px; cursor: pointer; }
-    .controls { display: flex; justify-content: center; align-items: center; gap: 28px; }
-    .ctrl-btn { background: none; border: none; color: #fff; font-size: 20px; cursor: pointer; padding: 4px; }
-    .play-btn { width: 42px; height: 42px; border-radius: 50%; background: #1db954; color: #000; font-size: 17px; font-weight: bold; display: flex; align-items: center; justify-content: center; }
-    .ctrl-btn.active-toggle { color: #1db954; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background: #09090d;
+      color: #ffffff;
+      min-height: 100vh;
+      padding-bottom: 185px;
+      overflow-x: hidden;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: #09090d;
+      padding: 14px 16px 12px;
+      border-bottom: 1px solid #1c1c28;
+    }
+
+    .header-inner {
+      max-width: 740px;
+      margin: 0 auto;
+    }
+
+    .brand {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-svg {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      flex-shrink: 0;
+    }
+
+    .brand-text h1 {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 0.7px;
+      line-height: 1.1;
+    }
+
+    .brand-text h1 span {
+      color: #1db954;
+    }
+
+    .brand-sub {
+      font-size: 10px;
+      color: #8888a0;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    .status-pill {
+      font-size: 11px;
+      background: #12261a;
+      color: #1db954;
+      padding: 5px 11px;
+      border-radius: 20px;
+      font-weight: 700;
+      border: 1px solid #1d422b;
+    }
+
+    .search-box {
+      display: flex;
+      gap: 8px;
+    }
+
+    .search-box input {
+      flex: 1;
+      padding: 12px 16px;
+      border-radius: 25px;
+      border: 1px solid #262636;
+      background: #14141e;
+      color: #fff;
+      font-size: 14px;
+      outline: none;
+    }
+
+    .search-box input:focus {
+      border-color: #1db954;
+    }
+
+    .search-box button {
+      padding: 0 22px;
+      border-radius: 25px;
+      border: none;
+      background: linear-gradient(135deg, #1db954, #00e676);
+      color: #000;
+      font-weight: 800;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .search-box button:active {
+      transform: scale(0.96);
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      gap: 10px;
+      max-width: 740px;
+      margin: 12px auto 0;
+      padding: 0 16px;
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 10px;
+      border-radius: 12px;
+      border: 1px solid #222230;
+      background: #13131c;
+      color: #9e9eb5;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+    }
+
+    .tab-btn svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+    }
+
+    .tab-btn.active {
+      background: #1db954;
+      color: #000;
+      border-color: #1db954;
+    }
+
+    /* Quick Chips */
+    .chips {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 12px 16px 4px;
+      scrollbar-width: none;
+      max-width: 740px;
+      margin: 0 auto;
+    }
+
+    .chips::-webkit-scrollbar {
+      display: none;
+    }
+
+    .chip {
+      background: #151520;
+      color: #d0d0e2;
+      border: 1px solid #252536;
+      padding: 7px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    .chip:active {
+      background: #1db954;
+      color: #000;
+      border-color: #1db954;
+    }
+
+    /* Main List */
+    .container {
+      max-width: 740px;
+      margin: 0 auto;
+      padding: 10px 16px;
+    }
+
+    #status {
+      color: #8c8ca6;
+      margin: 8px 0 14px;
+      font-size: 13px;
+    }
+
+    .song-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .song-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 9px 10px;
+      background: #13131c;
+      border-radius: 14px;
+      cursor: pointer;
+      border: 1px solid #1e1e2c;
+    }
+
+    .song-item.active {
+      border-color: #1db954;
+      background: #112418;
+    }
+
+    .song-item img {
+      width: 54px;
+      height: 54px;
+      border-radius: 10px;
+      object-fit: cover;
+      background: #20202e;
+      flex-shrink: 0;
+    }
+
+    .song-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .song-title {
+      font-size: 14px;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 3px;
+    }
+
+    .song-item.active .song-title {
+      color: #1db954;
+    }
+
+    .song-artist {
+      font-size: 12px;
+      color: #9090aa;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .song-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .icon-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid #262638;
+      background: #1a1a26;
+      color: #b8b8d0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .icon-btn svg {
+      width: 17px;
+      height: 17px;
+      fill: currentColor;
+    }
+
+    .icon-btn.liked {
+      color: #ff4757;
+      border-color: #4a1c24;
+      background: #2b1318;
+    }
+
+    /* Footer */
+    footer {
+      max-width: 740px;
+      margin: 28px auto 10px;
+      padding: 20px 16px;
+      text-align: center;
+      border-top: 1px solid #1c1c28;
+    }
+
+    .dev-badge {
+      display: inline-block;
+      background: #13131c;
+      border: 1px solid #252536;
+      padding: 8px 18px;
+      border-radius: 25px;
+      font-size: 13px;
+      color: #9e9eb8;
+      margin-bottom: 8px;
+    }
+
+    .dev-badge strong {
+      color: #1db954;
+      font-weight: 800;
+      letter-spacing: 0.6px;
+    }
+
+    .footer-tagline {
+      font-size: 12px;
+      color: #8888a0;
+      letter-spacing: 0.4px;
+    }
+
+    /* Sticky Bottom Player */
+    .player {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #12121b;
+      border-top: 1px solid #252536;
+      padding: 12px 16px 16px;
+      z-index: 30;
+      display: none;
+    }
+
+    .player.visible {
+      display: block;
+    }
+
+    .player-inner {
+      max-width: 740px;
+      margin: 0 auto;
+    }
+
+    .now-playing {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .now-playing img {
+      width: 46px;
+      height: 46px;
+      border-radius: 10px;
+      object-fit: cover;
+      background: #20202e;
+    }
+
+    .now-meta {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .now-title {
+      font-size: 14px;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .now-artist {
+      font-size: 12px;
+      color: #9090aa;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .progress-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .time {
+      font-size: 11px;
+      color: #9090aa;
+      min-width: 34px;
+      text-align: center;
+    }
+
+    input[type="range"] {
+      flex: 1;
+      accent-color: #1db954;
+      height: 4px;
+      cursor: pointer;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 26px;
+    }
+
+    .ctrl-btn {
+      background: none;
+      border: none;
+      color: #ffffff;
+      cursor: pointer;
+      padding: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ctrl-btn svg {
+      width: 22px;
+      height: 22px;
+      fill: currentColor;
+    }
+
+    .play-btn {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #1db954, #00e676);
+      color: #000000;
+    }
+
+    .play-btn svg {
+      width: 22px;
+      height: 22px;
+      fill: #000000;
+    }
+
+    .ctrl-btn.active-toggle {
+      color: #1db954;
+    }
   </style>
 </head>
 <body>
 
   <header>
-    <div class="brand">
-      <div class="logo-wrap">
-        <svg class="logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-          <defs>
-            <linearGradient id="skGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#1db954" />
-              <stop offset="100%" stop-color="#00e676" />
-            </linearGradient>
-          </defs>
-          <rect width="64" height="64" rx="16" fill="#171722" stroke="#262636" stroke-width="2" />
-          <path d="M16 35v-3a16 16 0 0 1 32 0v3" fill="none" stroke="url(#skGrad)" stroke-width="4.5" stroke-linecap="round" />
-          <rect x="11" y="32" width="8" height="16" rx="4" fill="url(#skGrad)" />
-          <rect x="45" y="32" width="8" height="16" rx="4" fill="url(#skGrad)" />
-          <text x="32" y="45" text-anchor="middle" font-family="Arial, sans-serif" font-weight="900" font-size="14" fill="#ffffff">SK</text>
-        </svg>
-        <div class="brand-text">
-          <h1>LISTEN WITH <span>SK</span></h1>
-          <div class="brand-sub">Own YouTube Engine</div>
+    <div class="header-inner">
+      <div class="brand">
+        <div class="logo-wrap">
+          <svg class="logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+            <defs>
+              <linearGradient id="skGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#1db954" />
+                <stop offset="100%" stop-color="#00e676" />
+              </linearGradient>
+            </defs>
+            <rect width="64" height="64" rx="16" fill="#171722" stroke="#262636" stroke-width="2" />
+            <path d="M16 35v-3a16 16 0 0 1 32 0v3" fill="none" stroke="url(#skGrad)" stroke-width="4.5" stroke-linecap="round" />
+            <rect x="11" y="32" width="8" height="16" rx="4" fill="url(#skGrad)" />
+            <rect x="45" y="32" width="8" height="16" rx="4" fill="url(#skGrad)" />
+            <text x="32" y="45" text-anchor="middle" font-family="Arial, sans-serif" font-weight="900" font-size="14" fill="#ffffff">SK</text>
+          </svg>
+          <div class="brand-text">
+            <h1>LISTEN WITH <span>SK</span></h1>
+            <div class="brand-sub">HD Background Music</div>
+          </div>
         </div>
+        <span class="status-pill" id="serverBadge">Online</span>
       </div>
-      <span class="badge" id="serverBadge">Online</span>
-    </div>
 
-    <div class="search-box">
-      <input type="text" id="searchInput" placeholder="YouTube par koi bhi gaana search karein..." />
-      <button id="searchBtn">Search</button>
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Gaana ya singer ka naam search karein..." />
+        <button id="searchBtn">Search</button>
+      </div>
     </div>
   </header>
 
+  <div class="tabs">
+    <button class="tab-btn active" id="tabDiscover">
+      <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+      Discover
+    </button>
+    <button class="tab-btn" id="tabLiked">
+      <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+      Liked (<span id="likedCount">0</span>)
+    </button>
+  </div>
+
   <div class="chips" id="chips">
-    <button class="chip" data-q="Arijit Singh hits">Arijit Singh</button>
-    <button class="chip" data-q="Sidhu Moose Wala songs">Sidhu Moose Wala</button>
-    <button class="chip" data-q="Diljit Dosanjh songs">Diljit Dosanjh</button>
-    <button class="chip" data-q="Bollywood new songs 2026">New Bollywood</button>
-    <button class="chip" data-q="Hindi Lofi songs">Hindi Lofi</button>
+    <button class="chip" data-q="Trending Hindi Songs">Trending</button>
+    <button class="chip" data-q="Arijit Singh">Arijit Singh</button>
+    <button class="chip" data-q="Sidhu Moose Wala">Sidhu Moose Wala</button>
+    <button class="chip" data-q="Diljit Dosanjh">Diljit Dosanjh</button>
+    <button class="chip" data-q="Haryanvi Hits">Haryanvi Hits</button>
+    <button class="chip" data-q="Hindi Lofi">Hindi Lofi</button>
+    <button class="chip" data-q="English Hits">English Hits</button>
   </div>
 
   <main class="container">
-    <div id="status">Koi bhi gaana search karein ya upar se select karein</div>
+    <div id="status">Trending gaane load ho rahe hain...</div>
     <div class="song-list" id="songList"></div>
   </main>
 
+  <footer>
+    <div class="dev-badge">Developer: <strong>SUHAIL KHAN</strong></div>
+    <div class="footer-tagline">Enjoy Free Background All Music &bull; Non-Stop HD Audio</div>
+  </footer>
+
+  <!-- Sticky Bottom Player -->
   <div class="player" id="playerBar">
     <div class="player-inner">
       <div class="now-playing">
@@ -105,17 +522,29 @@
           <div class="now-title" id="playerTitle">No song selected</div>
           <div class="now-artist" id="playerArtist">...</div>
         </div>
+        <button class="icon-btn" id="playerLikeBtn" title="Like"></button>
+        <a class="icon-btn" id="playerDownloadBtn" href="#" target="_blank" download title="Download">
+          <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+        </a>
       </div>
+
       <div class="progress-wrap">
         <span class="time" id="currentTime">0:00</span>
         <input type="range" id="seekBar" value="0" min="0" max="100" step="1" />
         <span class="time" id="totalTime">0:00</span>
       </div>
+
       <div class="controls">
-        <button class="ctrl-btn" id="loopBtn">🔁</button>
-        <button class="ctrl-btn" id="prevBtn">⏮</button>
-        <button class="ctrl-btn play-btn" id="playPauseBtn">▶</button>
-        <button class="ctrl-btn" id="nextBtn">⏭</button>
+        <button class="ctrl-btn" id="loopBtn" title="Repeat">
+          <svg viewBox="0 0 24 24"><path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/></svg>
+        </button>
+        <button class="ctrl-btn" id="prevBtn" title="Previous">
+          <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+        </button>
+        <button class="ctrl-btn play-btn" id="playPauseBtn" title="Play/Pause"></button>
+        <button class="ctrl-btn" id="nextBtn" title="Next">
+          <svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+        </button>
       </div>
     </div>
   </div>
@@ -123,8 +552,22 @@
   <audio id="audio" preload="auto"></audio>
 
   <script>
-    let playlist = [];
+    const API_BASE = "https://listen-with-sk.onrender.com";
+
+    // Crisp SVG Icons (Zero Emojis = Never Breaks)
+    const ICON_PLAY = '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
+    const ICON_PAUSE = '<svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>';
+    const ICON_LOAD = '<svg viewBox="0 0 24 24"><path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/></svg>';
+    const ICON_HEART_EMPTY = '<svg viewBox="0 0 24 24"><path d="M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3zm-4.4 15.55l-.1.1-.1-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04.99 3.57 2.36h1.87C13.46 5.99 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05z"/></svg>';
+    const ICON_HEART_FULL = '<svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>';
+    const ICON_DL = '<svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>';
+
+    let searchResults = [];
+    let likedSongs = JSON.parse(localStorage.getItem("sk_liked_songs") || "[]");
+    let currentTab = "discover";
+    let activeQueue = [];
     let currentIndex = -1;
+    let currentSong = null;
     let isLooping = false;
 
     const audio = document.getElementById("audio");
@@ -133,15 +576,54 @@
     const songList = document.getElementById("songList");
     const statusEl = document.getElementById("status");
     const serverBadge = document.getElementById("serverBadge");
+    const chipsEl = document.getElementById("chips");
+
+    const tabDiscover = document.getElementById("tabDiscover");
+    const tabLiked = document.getElementById("tabLiked");
+    const likedCountEl = document.getElementById("likedCount");
 
     const playerBar = document.getElementById("playerBar");
     const playerThumb = document.getElementById("playerThumb");
     const playerTitle = document.getElementById("playerTitle");
     const playerArtist = document.getElementById("playerArtist");
+    const playerLikeBtn = document.getElementById("playerLikeBtn");
+    const playerDownloadBtn = document.getElementById("playerDownloadBtn");
     const playPauseBtn = document.getElementById("playPauseBtn");
     const seekBar = document.getElementById("seekBar");
     const currentTimeEl = document.getElementById("currentTime");
     const totalTimeEl = document.getElementById("totalTime");
+
+    playPauseBtn.innerHTML = ICON_PLAY;
+    playerLikeBtn.innerHTML = ICON_HEART_EMPTY;
+
+    function updateLikedCount() {
+      likedCountEl.textContent = likedSongs.length;
+    }
+
+    function isLiked(id) {
+      return likedSongs.some(s => s.id === id);
+    }
+
+    function toggleLike(song, e) {
+      if (e) e.stopPropagation();
+      const exists = likedSongs.findIndex(s => s.id === song.id);
+      if (exists > -1) {
+        likedSongs.splice(exists, 1);
+      } else {
+        likedSongs.unshift(song);
+      }
+      localStorage.setItem("sk_liked_songs", JSON.stringify(likedSongs));
+      updateLikedCount();
+      updatePlayerLikeUI();
+      renderCurrentTab();
+    }
+
+    function updatePlayerLikeUI() {
+      if (!currentSong) return;
+      const liked = isLiked(currentSong.id);
+      playerLikeBtn.innerHTML = liked ? ICON_HEART_FULL : ICON_HEART_EMPTY;
+      playerLikeBtn.classList.toggle("liked", liked);
+    }
 
     function formatTime(sec) {
       if (!sec || isNaN(sec) || sec < 0) return "0:00";
@@ -155,115 +637,56 @@
       if (!q) return;
       if (customQuery) searchInput.value = customQuery;
 
+      switchTab("discover");
       statusEl.textContent = `"${q}" search ho raha hai...`;
-      serverBadge.textContent = "Searching...";
+      serverBadge.textContent = "Loading...";
 
       try {
-        const res = await fetch(`/api/search?q=${encodeURIComponent(q)}`);
+        const res = await fetch(`${API_BASE}/api/search?q=${encodeURIComponent(q)}`);
         const data = await res.json();
         if (!Array.isArray(data) || !data.length) {
-          statusEl.textContent = "Koi gaana nahi mila.";
+          statusEl.textContent = "Koi gaana nahi mila. Kuch aur search karein.";
           serverBadge.textContent = "Online";
+          searchResults = [];
+          renderCurrentTab();
           return;
         }
-        playlist = data;
-        currentIndex = -1;
-        statusEl.textContent = `${playlist.length} gaane mile`;
+        searchResults = data;
+        statusEl.textContent = `${searchResults.length} gaane mile`;
         serverBadge.textContent = "Online";
-        renderPlaylist();
+        renderCurrentTab();
       } catch (err) {
-        statusEl.textContent = "Server wake up ho raha hai, 10 second baad dubara try karein.";
+        statusEl.textContent = "Server wake up ho raha hai, 15 second baad dubara try karein.";
         serverBadge.textContent = "Waking...";
       }
     }
 
-    function renderPlaylist() {
+    function switchTab(tab) {
+      currentTab = tab;
+      tabDiscover.classList.toggle("active", tab === "discover");
+      tabLiked.classList.toggle("active", tab === "liked");
+      chipsEl.style.display = tab === "discover" ? "flex" : "none";
+      renderCurrentTab();
+    }
+
+    function renderCurrentTab() {
+      const list = currentTab === "liked" ? likedSongs : searchResults;
+
+      if (currentTab === "liked") {
+        statusEl.textContent = list.length
+          ? `Aapke ${list.length} liked gaane`
+          : "Abhi koi liked song nahi hai. Heart icon par tap karke save karein.";
+      }
+
       const frag = document.createDocumentFragment();
-      playlist.forEach((song, i) => {
+      list.forEach((song, i) => {
+        const liked = isLiked(song.id);
+        const isActive = currentSong && currentSong.id === song.id;
         const div = document.createElement("div");
-        div.className = "song-item";
-        div.dataset.index = i;
+        div.className = "song-item" + (isActive ? " active" : "");
+
         div.innerHTML = `
           <img src="${song.thumbnail}" alt="cover" loading="lazy" />
           <div class="song-info">
             <div class="song-title">${song.title}</div>
-            <div class="song-artist">${song.artist}</div>
-          </div>
-          <div class="song-duration">${formatTime(song.duration)}</div>
-        `;
-        div.addEventListener("click", () => playSong(i));
-        frag.appendChild(div);
-      });
-      songList.innerHTML = "";
-      songList.appendChild(frag);
-    }
-
-    function playSong(index) {
-      if (index < 0 || index >= playlist.length) return;
-      currentIndex = index;
-      const song = playlist[index];
-
-      const prev = songList.querySelector(".song-item.active");
-      if (prev) prev.classList.remove("active");
-      const curr = songList.querySelector(`.song-item[data-index="${index}"]`);
-      if (curr) curr.classList.add("active");
-
-      playerBar.classList.add("visible");
-      playerThumb.src = song.thumbnail;
-      playerTitle.textContent = song.title;
-      playerArtist.textContent = song.artist;
-      playPauseBtn.textContent = "⏳";
-
-      audio.src = `/api/play/${song.id}?title=${encodeURIComponent(song.title)}`;
-      audio.play().then(() => {
-        playPauseBtn.textContent = "⏸";
-        if ("mediaSession" in navigator) {
-          navigator.mediaSession.metadata = new MediaMetadata({
-            title: song.title,
-            artist: song.artist,
-            album: "LISTEN WITH SK",
-            artwork: [{ src: song.thumbnail, sizes: "480x360", type: "image/jpeg" }]
-          });
-          navigator.mediaSession.setActionHandler("play", () => audio.play());
-          navigator.mediaSession.setActionHandler("pause", () => audio.pause());
-          navigator.mediaSession.setActionHandler("previoustrack", () => playSong((currentIndex - 1 + playlist.length) % playlist.length));
-          navigator.mediaSession.setActionHandler("nexttrack", () => playSong((currentIndex + 1) % playlist.length));
-        }
-      }).catch(() => { playPauseBtn.textContent = "▶"; });
-    }
-
-    searchBtn.addEventListener("click", () => searchSongs());
-    searchInput.addEventListener("keydown", (e) => { if (e.key === "Enter") searchSongs(); });
-    document.getElementById("chips").addEventListener("click", (e) => {
-      if (e.target.classList.contains("chip")) searchSongs(e.target.dataset.q);
-    });
-
-    playPauseBtn.addEventListener("click", () => {
-      if (!audio.src) return;
-      audio.paused ? audio.play() : audio.pause();
-    });
-    document.getElementById("prevBtn").addEventListener("click", () => playSong((currentIndex - 1 + playlist.length) % playlist.length));
-    document.getElementById("nextBtn").addEventListener("click", () => playSong((currentIndex + 1) % playlist.length));
-    document.getElementById("loopBtn").addEventListener("click", (e) => {
-      isLooping = !isLooping;
-      e.target.classList.toggle("active-toggle", isLooping);
-    });
-
-    audio.addEventListener("play", () => { playPauseBtn.textContent = "⏸"; });
-    audio.addEventListener("pause", () => { playPauseBtn.textContent = "▶"; });
-    audio.addEventListener("timeupdate", () => {
-      if (!audio.duration) return;
-      seekBar.max = Math.floor(audio.duration);
-      seekBar.value = Math.floor(audio.currentTime);
-      currentTimeEl.textContent = formatTime(audio.currentTime);
-      totalTimeEl.textContent = formatTime(audio.duration);
-    });
-    seekBar.addEventListener("input", () => { audio.currentTime = seekBar.value; });
-    audio.addEventListener("ended", () => {
-      if (isLooping) { audio.currentTime = 0; audio.play(); }
-      else { playSong((currentIndex + 1) % playlist.length); }
-    });
-  </script>
-</body>
-</html>
-
+            <div class="song-artist">${song.artist} &bull; ${formatTime(song.duration)}<
