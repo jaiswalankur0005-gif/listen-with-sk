@@ -14,7 +14,7 @@
   <meta property="og:description" content="LISTEN WITH SK - Official Free HD background music streaming and search. Developed by Suhail Khan." />
   <meta property="og:type" content="website" />
 
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%231db954'/%3E%3Cstop offset='100%25' stop-color='%2300e676'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='%2312121a'/%3E%3Cpath d='M16 36v-4a16 16 0 0 1 32 0v4' fill="none" stroke='url(%23g)' stroke-width='4.5' stroke-linecap='round'/%3E%3Crect x='11' y='33' width='8' height='15' rx='4' fill='url(%23g)'/%3E%3Crect x='45' y='33' width='8' height='15' rx='4' fill='url(%23g)'/%3E%3Ctext x='32' y='45' text-anchor='middle' font-family='Arial,sans-serif' font-weight='900' font-size='15' fill='%23ffffff'%3ESK%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%231db954'/%3E%3Cstop offset='100%25' stop-color='%2300e676'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='%2312121a'/%3E%3Cpath d='M16 36v-4a16 16 0 0 1 32 0v4' fill='none' stroke='url(%23g)' stroke-width='4.5' stroke-linecap='round'/%3E%3Crect x='11' y='33' width='8' height='15' rx='4' fill='url(%23g)'/%3E%3Crect x='45' y='33' width='8' height='15' rx='4' fill='url(%23g)'/%3E%3Ctext x='32' y='45' text-anchor='middle' font-family='Arial,sans-serif' font-weight='900' font-size='15' fill='%23ffffff'%3ESK%3C/text%3E%3C/svg%3E" />
 
   <style>
     * {
@@ -36,20 +36,35 @@
       user-select: text;
     }
 
-    img {
-      -webkit-user-drag: none;
-      pointer-events: auto;
-    }
-
     html {
       scroll-behavior: smooth;
+      scrollbar-width: thin;
+      scrollbar-color: #1db954 #101119;
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #101119;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #273043;
+      border-radius: 999px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #1db954;
     }
 
     body {
       background: radial-gradient(circle at top, #121622 0%, #07070b 48%);
       color: #ffffff;
       min-height: 100vh;
-      padding-bottom: 220px;
+      padding-bottom: 245px;
       overflow-x: hidden;
     }
 
@@ -57,7 +72,7 @@
       position: sticky;
       top: 0;
       z-index: 20;
-      background: rgba(9, 10, 16, 0.86);
+      background: rgba(9, 10, 16, 0.88);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
       padding: 14px 16px 12px;
@@ -321,6 +336,11 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
+      max-height: 58vh;
+      overflow-y: auto;
+      padding-right: 4px;
+      scrollbar-width: thin;
+      scrollbar-color: #1db954 rgba(255, 255, 255, 0.05);
     }
 
     .song-item {
@@ -665,7 +685,7 @@
       position: fixed;
       left: 0;
       right: 0;
-      bottom: 195px;
+      bottom: 238px;
       max-width: 740px;
       margin: 0 auto;
       background: #131420;
@@ -673,7 +693,7 @@
       border-radius: 18px 18px 0 0;
       z-index: 29;
       display: none;
-      max-height: 52vh;
+      max-height: 48vh;
       flex-direction: column;
       box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.65);
     }
@@ -863,103 +883,32 @@
       fill: #000;
     }
 
-    /* Professional Footer */
-    footer {
-      max-width: 740px;
-      margin: 34px auto 12px;
-      padding: 22px 16px;
-      background: rgba(17, 18, 28, 0.9);
-      border: 1px solid #222436;
-      border-radius: 20px;
-      text-align: center;
-    }
-
-    .footer-brand {
-      font-size: 16px;
-      font-weight: 800;
-      letter-spacing: 0.6px;
-      margin-bottom: 4px;
-    }
-
-    .footer-brand span {
-      color: #1db954;
-    }
-
-    .footer-sub {
-      font-size: 12px;
-      color: #8f93ab;
-      margin-bottom: 14px;
-    }
-
-    .footer-links {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 8px;
-      margin-bottom: 16px;
-    }
-
-    .footer-btn {
-      background: #191b2a;
-      color: #d6d8ea;
-      border: 1px solid #292c40;
-      padding: 7px 13px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    .footer-btn.highlight {
-      border-color: rgba(29, 185, 84, 0.45);
-      color: #1db954;
-    }
-
-    .dev-badge {
-      display: inline-block;
-      background: #12131d;
-      border: 1px solid #26293d;
-      padding: 7px 16px;
-      border-radius: 25px;
-      font-size: 12.5px;
-      color: #9e9eb8;
-      margin-bottom: 8px;
-    }
-
-    .dev-badge strong {
-      color: #1db954;
-      font-weight: 800;
-      letter-spacing: 0.6px;
-    }
-
-    .footer-copy {
-      font-size: 11px;
-      color: #777b94;
-      letter-spacing: 0.3px;
-    }
-
-    /* Sticky Bottom Player */
-    .player {
+    /* Sticky Bottom Stack: Player + Compact Footer Bar */
+    .bottom-dock {
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
-      background: rgba(16, 17, 26, 0.92);
+      z-index: 30;
+      background: rgba(13, 14, 22, 0.94);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border-top: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 10px 16px 14px;
-      z-index: 30;
+    }
+
+    .dock-inner {
+      max-width: 740px;
+      margin: 0 auto;
+    }
+
+    .player {
+      padding: 10px 16px 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
       display: none;
     }
 
     .player.visible {
       display: block;
-    }
-
-    .player-inner {
-      max-width: 740px;
-      margin: 0 auto;
     }
 
     .now-playing {
@@ -1075,6 +1024,30 @@
       background: rgba(29, 185, 84, 0.12);
     }
 
+    .bottom-footer-bar {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 7px 12px 9px;
+      gap: 6px;
+    }
+
+    .dock-link-btn {
+      background: none;
+      border: none;
+      color: #9ea2bc;
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .dock-link-btn:active {
+      color: #1db954;
+      background: rgba(29, 185, 84, 0.1);
+    }
+
     .toast {
       position: fixed;
       top: 76px;
@@ -1179,25 +1152,6 @@
     <div class="load-more-wrap" id="loadMoreWrap" style="display:none;">
       <button class="load-more-btn" id="loadMoreBtn">+ Load More Songs</button>
     </div>
-
-    <!-- Professional Footer -->
-    <footer>
-      <div class="footer-brand">LISTEN WITH <span>SK</span></div>
-      <div class="footer-sub">Official Free HD Background Music Streaming Platform</div>
-
-      <div class="footer-links">
-        <button class="footer-btn" id="ftDiscoverBtn">Discover</button>
-        <button class="footer-btn" id="ftPlaylistsBtn">Playlists</button>
-        <button class="footer-btn" id="ftLikedBtn">Liked Songs</button>
-        <button class="footer-btn" id="ftAboutBtn">About App</button>
-        <button class="footer-btn" id="ftTipsBtn">Tips</button>
-        <button class="footer-btn highlight" id="ftShareSiteBtn">Share Site</button>
-        <button class="footer-btn" id="ftTopBtn">↑ Top</button>
-      </div>
-
-      <div class="dev-badge">Official Owner &amp; Developer: <strong>SUHAIL KHAN</strong></div>
-      <div class="footer-copy">&copy; 2026 LISTEN WITH SK. All Rights Reserved.</div>
-    </footer>
   </main>
 
   <!-- Full-Screen Now Playing View -->
@@ -1285,52 +1239,60 @@
     </div>
   </div>
 
-  <!-- Sticky Bottom Player -->
-  <div class="player" id="playerBar">
-    <div class="player-inner">
-      <div class="now-playing">
-        <div class="now-open-trigger" id="openFullPlayerTrigger" title="Tap for Full-Screen Player">
-          <img id="playerThumb" src="" alt="Cover" />
-          <div class="now-meta">
-            <div class="now-title" id="playerTitle">No song selected</div>
-            <div class="now-artist" id="playerArtist">...</div>
+  <!-- Sticky Bottom Dock: Player + 3 Footer Options -->
+  <div class="bottom-dock">
+    <div class="dock-inner">
+      <div class="player" id="playerBar">
+        <div class="now-playing">
+          <div class="now-open-trigger" id="openFullPlayerTrigger" title="Tap for Full-Screen Player">
+            <img id="playerThumb" src="" alt="Cover" />
+            <div class="now-meta">
+              <div class="now-title" id="playerTitle">No song selected</div>
+              <div class="now-artist" id="playerArtist">...</div>
+            </div>
           </div>
+          <button class="icon-btn" id="playerAddPlBtn" title="Add to Playlist">+</button>
+          <button class="icon-btn" id="playerLikeBtn" title="Like"></button>
+          <button class="icon-btn" id="playerShareBtn" title="Share">
+            <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg>
+          </button>
+          <a class="icon-btn" id="playerDownloadBtn" href="#" target="_blank" download title="Download">
+            <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+          </a>
         </div>
-        <button class="icon-btn" id="playerAddPlBtn" title="Add to Playlist">+</button>
-        <button class="icon-btn" id="playerLikeBtn" title="Like"></button>
-        <button class="icon-btn" id="playerShareBtn" title="Share">
-          <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg>
-        </button>
-        <a class="icon-btn" id="playerDownloadBtn" href="#" target="_blank" download title="Download">
-          <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
-        </a>
+
+        <div class="progress-wrap">
+          <span class="time" id="currentTime">0:00</span>
+          <input type="range" id="seekBar" value="0" min="0" max="100" step="1" />
+          <span class="time" id="totalTime">0:00</span>
+        </div>
+
+        <div class="controls">
+          <button class="ctrl-btn" id="shuffleBtn" title="Shuffle">
+            <svg viewBox="0 0 24 24"><path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z"/></svg>
+          </button>
+          <button class="ctrl-btn" id="prevBtn" title="Previous">
+            <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+          </button>
+          <button class="ctrl-btn play-btn" id="playPauseBtn" title="Play/Pause"></button>
+          <button class="ctrl-btn" id="nextBtn" title="Next">
+            <svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+          </button>
+          <button class="ctrl-btn" id="loopBtn" title="Repeat">
+            <svg viewBox="0 0 24 24"><path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/></svg>
+          </button>
+          <button class="ctrl-btn" id="speedBtn" title="Playback Speed">1x</button>
+          <button class="ctrl-btn" id="sleepBtn" title="Sleep Timer">Off</button>
+          <button class="ctrl-btn" id="queueBtn" title="Up Next Queue">
+            <svg viewBox="0 0 24 24"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h10v2H4z"/></svg>
+          </button>
+        </div>
       </div>
 
-      <div class="progress-wrap">
-        <span class="time" id="currentTime">0:00</span>
-        <input type="range" id="seekBar" value="0" min="0" max="100" step="1" />
-        <span class="time" id="totalTime">0:00</span>
-      </div>
-
-      <div class="controls">
-        <button class="ctrl-btn" id="shuffleBtn" title="Shuffle">
-          <svg viewBox="0 0 24 24"><path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z"/></svg>
-        </button>
-        <button class="ctrl-btn" id="prevBtn" title="Previous">
-          <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
-        </button>
-        <button class="ctrl-btn play-btn" id="playPauseBtn" title="Play/Pause"></button>
-        <button class="ctrl-btn" id="nextBtn" title="Next">
-          <svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
-        </button>
-        <button class="ctrl-btn" id="loopBtn" title="Repeat">
-          <svg viewBox="0 0 24 24"><path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/></svg>
-        </button>
-        <button class="ctrl-btn" id="speedBtn" title="Playback Speed">1x</button>
-        <button class="ctrl-btn" id="sleepBtn" title="Sleep Timer">Off</button>
-        <button class="ctrl-btn" id="queueBtn" title="Up Next Queue">
-          <svg viewBox="0 0 24 24"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h10v2H4z"/></svg>
-        </button>
+      <div class="bottom-footer-bar">
+        <button class="dock-link-btn" id="ftAboutBtn">About</button>
+        <button class="dock-link-btn" id="ftTipsBtn">Tips</button>
+        <button class="dock-link-btn" id="ftShareSiteBtn">Share</button>
       </div>
     </div>
   </div>
@@ -1338,7 +1300,6 @@
   <audio id="audio" preload="auto"></audio>
 
   <script>
-    // Basic Content & Source Protection
     document.addEventListener("keydown", (e) => {
       const k = e.key.toLowerCase();
       if (
@@ -1934,7 +1895,6 @@
       audio.paused ? audio.play() : audio.pause();
     }
 
-    // Search & Recent Searches
     searchBtn.addEventListener("click", () => searchSongs());
     searchInput.addEventListener("keydown", (e) => {
       if (e.key === "Enter") searchSongs();
@@ -1983,22 +1943,7 @@
       showToast("Song link copied!");
     });
 
-    // Footer Actions
-    document.getElementById("ftDiscoverBtn").addEventListener("click", () => {
-      switchTab("discover");
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-    document.getElementById("ftPlaylistsBtn").addEventListener("click", () => {
-      switchTab("playlists");
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-    document.getElementById("ftLikedBtn").addEventListener("click", () => {
-      switchTab("liked");
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-    document.getElementById("ftTopBtn").addEventListener("click", () => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
+    // Bottom Dock Footer Actions (3 items: About, Tips, Share)
     document.getElementById("ftShareSiteBtn").addEventListener("click", async () => {
       const siteUrl = window.location.href;
       const shareText = `Listen free HD background music on LISTEN WITH SK: ${siteUrl}`;
@@ -2018,8 +1963,8 @@
       infoModalSub.textContent = "Official HD Music Streaming App";
       infoModalBody.innerHTML = `
         <div class="info-card"><strong>Owner &amp; Developer:</strong> Suhail Khan</div>
-        <div class="info-card"><strong>Unlimited Search:</strong> Home par top trending gaane dikhte hain, aur search box mein koi bhi gaana ya artist search karke sun sakte hain.</div>
-        <div class="info-card"><strong>Free &amp; Fast:</strong> Bina kisi subscription ke HD background audio, custom playlists, aur queue support.</div>
+        <div class="info-card"><strong>Unlimited Search:</strong> Search box mein koi bhi gaana ya artist search karke sun sakte hain.</div>
+        <div class="info-card"><strong>Free &amp; Fast:</strong> HD background audio, custom playlists, aur queue support.</div>
       `;
       infoModal.classList.add("open");
     });
@@ -2027,9 +1972,9 @@
       infoModalTitle.textContent = "Quick App Tips";
       infoModalSub.textContent = "LISTEN WITH SK ko full use kaise karein";
       infoModalBody.innerHTML = `
-        <div class="info-card"><strong>Full-Screen Mode:</strong> Neeche mini-player ke song title ya cover par tap karein. Band karne ke liye swipe down ya upar Close dabayein.</div>
-        <div class="info-card"><strong>More Songs:</strong> Kisi bhi category ke neeche "+ Load More Songs" par tap karke aur tracks load karein.</div>
-        <div class="info-card"><strong>Sleep Timer &amp; Speed:</strong> Bottom player mein "Off" par tap karke 15m/30m/60m timer aur "1x" par tap karke speed badlein.</div>
+        <div class="info-card"><strong>Full-Screen Mode:</strong> Player bar ke song title ya cover par tap karein. Band karne ke liye swipe down ya Close dabayein.</div>
+        <div class="info-card"><strong>More Songs:</strong> Category ke neeche "+ Load More Songs" par tap karke aur tracks load karein.</div>
+        <div class="info-card"><strong>Sleep Timer &amp; Speed:</strong> Player mein "Off" par tap karke timer aur "1x" par tap karke speed badlein.</div>
       `;
       infoModal.classList.add("open");
     });
@@ -2085,7 +2030,6 @@
       queueBtn.classList.remove("active-toggle");
     });
 
-    // Full-Screen Player Open/Close & Swipe Down Only
     document.getElementById("openFullPlayerTrigger").addEventListener("click", () => {
       if (currentSong) fullPlayer.classList.add("open");
     });
