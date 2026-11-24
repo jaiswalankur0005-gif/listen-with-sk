@@ -1,18 +1,20 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <meta name="theme-color" content="#09090d" />
-  <title>LISTEN WITH SK - HD Music</title>
+  <meta name="theme-color" content="#07070b" />
+  <title>LISTEN WITH SK - Official HD Music</title>
   <meta name="google-site-verification" content="MbN-3_8IO0nEPgYjkcClDENGLk7COdcIOZKDCRq9KF4" />
-  <meta name="description" content="LISTEN WITH SK - Free HD background music streaming and search. Developed by Suhail Khan." />
+  <meta name="author" content="Suhail Khan" />
+  <meta name="copyright" content="LISTEN WITH SK - Suhail Khan" />
+  <meta name="description" content="LISTEN WITH SK - Official Free HD background music streaming and search. Developed by Suhail Khan." />
   <meta name="keywords" content="LISTEN WITH SK, Listen With SK, HD Music, Background Music, Suhail Khan Music" />
-  <meta property="og:title" content="LISTEN WITH SK - HD Music" />
-  <meta property="og:description" content="LISTEN WITH SK - Free HD background music streaming and search. Developed by Suhail Khan." />
+  <meta property="og:title" content="LISTEN WITH SK - Official HD Music" />
+  <meta property="og:description" content="LISTEN WITH SK - Official Free HD background music streaming and search. Developed by Suhail Khan." />
   <meta property="og:type" content="website" />
 
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%231db954'/%3E%3Cstop offset='100%25' stop-color='%2300e676'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='%2312121a'/%3E%3Cpath d='M16 36v-4a16 16 0 0 1 32 0v4' fill="none" stroke='url(%23g)' stroke-width='4.5' stroke-linecap="round'/%3E%3Crect x='11' y='33' width='8' height='15' rx='4' fill='url(%23g)'/%3E%3Crect x='45' y='33' width='8' height='15' rx='4' fill='url(%23g)'/%3E%3Ctext x='32' y='45' text-anchor='middle' font-family='Arial,sans-serif' font-weight='900' font-size='15' fill='%23ffffff'%3ESK%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%231db954'/%3E%3Cstop offset='100%25' stop-color='%2300e676'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='%2312121a'/%3E%3Cpath d='M16 36v-4a16 16 0 0 1 32 0v4' fill="none" stroke='url(%23g)' stroke-width='4.5' stroke-linecap='round'/%3E%3Crect x='11' y='33' width='8' height='15' rx='4' fill='url(%23g)'/%3E%3Crect x='45' y='33' width='8' height='15' rx='4' fill='url(%23g)'/%3E%3Ctext x='32' y='45' text-anchor='middle' font-family='Arial,sans-serif' font-weight='900' font-size='15' fill='%23ffffff'%3ESK%3C/text%3E%3C/svg%3E" />
 
   <style>
     * {
@@ -21,10 +23,30 @@
       padding: 0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       -webkit-tap-highlight-color: transparent;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    input, textarea {
+      -webkit-user-select: text;
+      -moz-user-select: text;
+      -ms-user-select: text;
+      user-select: text;
+    }
+
+    img {
+      -webkit-user-drag: none;
+      pointer-events: auto;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
-      background: #09090d;
+      background: radial-gradient(circle at top, #121622 0%, #07070b 48%);
       color: #ffffff;
       min-height: 100vh;
       padding-bottom: 220px;
@@ -35,9 +57,11 @@
       position: sticky;
       top: 0;
       z-index: 20;
-      background: #09090d;
+      background: rgba(9, 10, 16, 0.86);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       padding: 14px 16px 12px;
-      border-bottom: 1px solid #1c1c28;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
 
     .header-inner {
@@ -60,10 +84,11 @@
     }
 
     .logo-svg {
-      width: 38px;
-      height: 38px;
-      border-radius: 10px;
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
       flex-shrink: 0;
+      box-shadow: 0 4px 14px rgba(29, 185, 84, 0.25);
     }
 
     .brand-text h1 {
@@ -71,28 +96,44 @@
       font-weight: 800;
       letter-spacing: 0.7px;
       line-height: 1.1;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
     .brand-text h1 span {
       color: #1db954;
     }
 
+    .verified-tick {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: #1db954;
+      color: #000;
+      font-size: 10px;
+      font-weight: 900;
+    }
+
     .brand-sub {
       font-size: 10px;
-      color: #8888a0;
-      letter-spacing: 1.2px;
+      color: #8f93ab;
+      letter-spacing: 1.1px;
       text-transform: uppercase;
       margin-top: 2px;
     }
 
     .status-pill {
       font-size: 11px;
-      background: #12261a;
+      background: rgba(29, 185, 84, 0.14);
       color: #1db954;
       padding: 5px 11px;
       border-radius: 20px;
       font-weight: 700;
-      border: 1px solid #1d422b;
+      border: 1px solid rgba(29, 185, 84, 0.35);
     }
 
     .search-box {
@@ -104,8 +145,8 @@
       flex: 1;
       padding: 12px 16px;
       border-radius: 25px;
-      border: 1px solid #262636;
-      background: #14141e;
+      border: 1px solid #26283a;
+      background: rgba(20, 21, 32, 0.92);
       color: #fff;
       font-size: 14px;
       outline: none;
@@ -134,8 +175,8 @@
     .recent-box {
       display: none;
       margin-top: 8px;
-      background: #13131d;
-      border: 1px solid #242436;
+      background: #131420;
+      border: 1px solid #26283c;
       border-radius: 14px;
       padding: 10px 12px;
     }
@@ -172,9 +213,9 @@
     }
 
     .recent-chip {
-      background: #1b1b28;
+      background: #1b1d2c;
       color: #d8d8ea;
-      border: 1px solid #2a2a3d;
+      border: 1px solid #2b2d42;
       padding: 5px 11px;
       border-radius: 16px;
       font-size: 12px;
@@ -194,8 +235,8 @@
       flex: 1;
       padding: 10px 8px;
       border-radius: 12px;
-      border: 1px solid #222230;
-      background: #13131c;
+      border: 1px solid #222436;
+      background: rgba(19, 20, 30, 0.9);
       color: #9e9eb5;
       font-size: 12.5px;
       font-weight: 700;
@@ -214,7 +255,7 @@
     }
 
     .tab-btn.active {
-      background: #1db954;
+      background: linear-gradient(135deg, #1db954, #00e676);
       color: #000;
       border-color: #1db954;
     }
@@ -222,7 +263,7 @@
     /* Category & Mood Chips */
     .section-label {
       max-width: 740px;
-      margin: 10px auto 0;
+      margin: 12px auto 0;
       padding: 0 16px;
       font-size: 11px;
       font-weight: 700;
@@ -246,9 +287,9 @@
     }
 
     .chip {
-      background: #151520;
+      background: #141522;
       color: #d0d0e2;
-      border: 1px solid #252536;
+      border: 1px solid #25273a;
       padding: 7px 14px;
       border-radius: 20px;
       font-size: 12px;
@@ -258,7 +299,7 @@
     }
 
     .chip.active {
-      background: #122b1b;
+      background: rgba(29, 185, 84, 0.16);
       color: #1db954;
       border-color: #1db954;
     }
@@ -287,15 +328,20 @@
       align-items: center;
       gap: 11px;
       padding: 9px 10px;
-      background: #13131c;
+      background: rgba(19, 20, 30, 0.92);
       border-radius: 14px;
       cursor: pointer;
-      border: 1px solid #1e1e2c;
+      border: 1px solid #1f2133;
+      transition: transform 0.12s ease, border-color 0.15s ease;
+    }
+
+    .song-item:active {
+      transform: scale(0.99);
     }
 
     .song-item.active {
       border-color: #1db954;
-      background: #112418;
+      background: linear-gradient(135deg, rgba(29, 185, 84, 0.16), rgba(19, 20, 30, 0.95));
     }
 
     .song-item img {
@@ -339,6 +385,28 @@
       text-overflow: ellipsis;
     }
 
+    /* Load More Button */
+    .load-more-wrap {
+      margin-top: 16px;
+      text-align: center;
+    }
+
+    .load-more-btn {
+      padding: 11px 22px;
+      border-radius: 24px;
+      border: 1px solid #2b2e44;
+      background: #151624;
+      color: #1db954;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .load-more-btn:disabled {
+      opacity: 0.6;
+      cursor: default;
+    }
+
     /* Equalizer Bars */
     .eq-bars {
       display: inline-flex;
@@ -375,8 +443,8 @@
       width: 32px;
       height: 32px;
       border-radius: 50%;
-      border: 1px solid #262638;
-      background: #1a1a26;
+      border: 1px solid #26283c;
+      background: #191b2a;
       color: #b8b8d0;
       display: flex;
       align-items: center;
@@ -433,8 +501,8 @@
     }
 
     .playlist-card {
-      background: #13131c;
-      border: 1px solid #1e1e2c;
+      background: #131420;
+      border: 1px solid #1f2133;
       border-radius: 14px;
       padding: 13px 14px;
       display: flex;
@@ -492,9 +560,9 @@
     }
 
     .back-btn {
-      background: #181824;
+      background: #181926;
       color: #fff;
-      border: 1px solid #2b2b3d;
+      border: 1px solid #2b2d42;
       padding: 8px 14px;
       border-radius: 10px;
       font-size: 12.5px;
@@ -506,7 +574,7 @@
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.72);
+      background: rgba(0, 0, 0, 0.76);
       z-index: 50;
       display: none;
       align-items: center;
@@ -520,9 +588,9 @@
 
     .modal-box {
       width: 100%;
-      max-width: 400px;
-      background: #14141f;
-      border: 1px solid #29293b;
+      max-width: 410px;
+      background: #131420;
+      border: 1px solid #2b2e44;
       border-radius: 18px;
       padding: 18px;
     }
@@ -537,9 +605,6 @@
       font-size: 12px;
       color: #9090aa;
       margin-bottom: 14px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
 
     .modal-list {
@@ -556,20 +621,41 @@
       justify-content: space-between;
       align-items: center;
       padding: 10px 12px;
-      background: #1b1b29;
+      background: #1b1d2c;
       border-radius: 11px;
-      border: 1px solid #2a2a3c;
+      border: 1px solid #2a2c40;
       font-size: 13.5px;
       font-weight: 600;
       cursor: pointer;
+    }
+
+    .info-list {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      font-size: 13px;
+      color: #d2d4e6;
+      line-height: 1.45;
+      margin-bottom: 14px;
+    }
+
+    .info-card {
+      background: #191b2a;
+      border: 1px solid #272a3e;
+      padding: 10px 12px;
+      border-radius: 12px;
+    }
+
+    .info-card strong {
+      color: #1db954;
     }
 
     .modal-close {
       width: 100%;
       padding: 10px;
       border-radius: 12px;
-      border: 1px solid #2b2b3d;
-      background: #1b1b29;
+      border: 1px solid #2b2d42;
+      background: #1b1d2c;
       color: #fff;
       font-weight: 700;
       cursor: pointer;
@@ -582,14 +668,14 @@
       bottom: 195px;
       max-width: 740px;
       margin: 0 auto;
-      background: #14141f;
-      border: 1px solid #29293b;
+      background: #131420;
+      border: 1px solid #2a2c40;
       border-radius: 18px 18px 0 0;
       z-index: 29;
       display: none;
       max-height: 52vh;
       flex-direction: column;
-      box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.6);
+      box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.65);
     }
 
     .queue-drawer.open {
@@ -601,7 +687,7 @@
       justify-content: space-between;
       align-items: center;
       padding: 12px 16px;
-      border-bottom: 1px solid #242434;
+      border-bottom: 1px solid #242638;
       font-size: 13.5px;
       font-weight: 800;
     }
@@ -620,8 +706,8 @@
       gap: 10px;
       padding: 8px 10px;
       border-radius: 11px;
-      background: #191926;
-      border: 1px solid #242435;
+      background: #191b2a;
+      border: 1px solid #242638;
       cursor: pointer;
       font-size: 13px;
     }
@@ -777,22 +863,65 @@
       fill: #000;
     }
 
-    /* Footer */
+    /* Professional Footer */
     footer {
       max-width: 740px;
-      margin: 28px auto 10px;
-      padding: 20px 16px;
+      margin: 34px auto 12px;
+      padding: 22px 16px;
+      background: rgba(17, 18, 28, 0.9);
+      border: 1px solid #222436;
+      border-radius: 20px;
       text-align: center;
-      border-top: 1px solid #1c1c28;
+    }
+
+    .footer-brand {
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 0.6px;
+      margin-bottom: 4px;
+    }
+
+    .footer-brand span {
+      color: #1db954;
+    }
+
+    .footer-sub {
+      font-size: 12px;
+      color: #8f93ab;
+      margin-bottom: 14px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .footer-btn {
+      background: #191b2a;
+      color: #d6d8ea;
+      border: 1px solid #292c40;
+      padding: 7px 13px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .footer-btn.highlight {
+      border-color: rgba(29, 185, 84, 0.45);
+      color: #1db954;
     }
 
     .dev-badge {
       display: inline-block;
-      background: #13131c;
-      border: 1px solid #252536;
-      padding: 8px 18px;
+      background: #12131d;
+      border: 1px solid #26293d;
+      padding: 7px 16px;
       border-radius: 25px;
-      font-size: 13px;
+      font-size: 12.5px;
       color: #9e9eb8;
       margin-bottom: 8px;
     }
@@ -803,10 +932,10 @@
       letter-spacing: 0.6px;
     }
 
-    .footer-tagline {
-      font-size: 12px;
-      color: #8888a0;
-      letter-spacing: 0.4px;
+    .footer-copy {
+      font-size: 11px;
+      color: #777b94;
+      letter-spacing: 0.3px;
     }
 
     /* Sticky Bottom Player */
@@ -815,8 +944,10 @@
       bottom: 0;
       left: 0;
       right: 0;
-      background: #12121b;
-      border-top: 1px solid #252536;
+      background: rgba(16, 17, 26, 0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
       padding: 10px 16px 14px;
       z-index: 30;
       display: none;
@@ -949,7 +1080,7 @@
       top: 76px;
       left: 50%;
       transform: translateX(-50%);
-      background: #1b1b29;
+      background: #191b2a;
       color: #fff;
       border: 1px solid #1db954;
       padding: 8px 16px;
@@ -965,7 +1096,7 @@
     }
   </style>
 </head>
-<body>
+<body oncontextmenu="return false;">
 
   <div class="toast" id="toast">Copied!</div>
 
@@ -987,15 +1118,15 @@
             <text x="32" y="45" text-anchor="middle" font-family="Arial, sans-serif" font-weight="900" font-size="14" fill="#ffffff">SK</text>
           </svg>
           <div class="brand-text">
-            <h1>LISTEN WITH <span>SK</span></h1>
-            <div class="brand-sub">HD Background Music</div>
+            <h1>LISTEN WITH <span>SK</span> <span class="verified-tick" title="Official Verified App">✓</span></h1>
+            <div class="brand-sub">Official HD Music Stream</div>
           </div>
         </div>
         <span class="status-pill" id="serverBadge">Online</span>
       </div>
 
       <div class="search-box">
-        <input type="text" id="searchInput" placeholder="Gaana ya singer ka naam search karein..." autocomplete="off" />
+        <input type="text" id="searchInput" placeholder="Koi bhi gaana ya singer search karein..." autocomplete="off" />
         <button id="searchBtn">Search</button>
       </div>
 
@@ -1045,6 +1176,28 @@
     <div id="status">Trending gaane load ho rahe hain...</div>
     <div id="playlistControls"></div>
     <div class="song-list" id="songList"></div>
+    <div class="load-more-wrap" id="loadMoreWrap" style="display:none;">
+      <button class="load-more-btn" id="loadMoreBtn">+ Load More Songs</button>
+    </div>
+
+    <!-- Professional Footer -->
+    <footer>
+      <div class="footer-brand">LISTEN WITH <span>SK</span></div>
+      <div class="footer-sub">Official Free HD Background Music Streaming Platform</div>
+
+      <div class="footer-links">
+        <button class="footer-btn" id="ftDiscoverBtn">Discover</button>
+        <button class="footer-btn" id="ftPlaylistsBtn">Playlists</button>
+        <button class="footer-btn" id="ftLikedBtn">Liked Songs</button>
+        <button class="footer-btn" id="ftAboutBtn">About App</button>
+        <button class="footer-btn" id="ftTipsBtn">Tips</button>
+        <button class="footer-btn highlight" id="ftShareSiteBtn">Share Site</button>
+        <button class="footer-btn" id="ftTopBtn">↑ Top</button>
+      </div>
+
+      <div class="dev-badge">Official Owner &amp; Developer: <strong>SUHAIL KHAN</strong></div>
+      <div class="footer-copy">&copy; 2026 LISTEN WITH SK. All Rights Reserved.</div>
+    </footer>
   </main>
 
   <!-- Full-Screen Now Playing View -->
@@ -1061,7 +1214,7 @@
       </button>
     </div>
 
-    <div class="fp-art-wrap" id="fpArtSwipe">
+    <div class="fp-art-wrap">
       <img id="fpThumb" src="" alt="Cover" />
     </div>
 
@@ -1112,7 +1265,7 @@
   <div class="modal-backdrop" id="playlistModal">
     <div class="modal-box">
       <div class="modal-title">Add to Playlist</div>
-      <div class="modal-sub" id="modalSongName">Song</div>
+      <div class="modal-sub" id="modalSongName" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Song</div>
       <div class="modal-list" id="modalPlaylistList"></div>
       <div class="create-playlist-box" style="margin-bottom:10px;">
         <input type="text" id="modalNewPlaylistInput" placeholder="Nayi playlist ka naam..." />
@@ -1122,10 +1275,15 @@
     </div>
   </div>
 
-  <footer>
-    <div class="dev-badge">Developer: <strong>SUHAIL KHAN</strong></div>
-    <div class="footer-tagline">Enjoy Free Background All Music &bull; Non-Stop HD Audio</div>
-  </footer>
+  <!-- About / Tips Info Modal -->
+  <div class="modal-backdrop" id="infoModal">
+    <div class="modal-box">
+      <div class="modal-title" id="infoModalTitle">About LISTEN WITH SK</div>
+      <div class="modal-sub" id="infoModalSub">Official Platform Information</div>
+      <div class="info-list" id="infoModalBody"></div>
+      <button class="modal-close" id="closeInfoModalBtn">Got It</button>
+    </div>
+  </div>
 
   <!-- Sticky Bottom Player -->
   <div class="player" id="playerBar">
@@ -1180,6 +1338,26 @@
   <audio id="audio" preload="auto"></audio>
 
   <script>
+    // Basic Content & Source Protection
+    document.addEventListener("keydown", (e) => {
+      const k = e.key.toLowerCase();
+      if (
+        e.key === "F12" ||
+        (e.ctrlKey && e.shiftKey && (k === "i" || k === "j" || k === "c")) ||
+        (e.ctrlKey && (k === "u" || k === "s"))
+      ) {
+        e.preventDefault();
+        showToast("Protected: LISTEN WITH SK Official");
+      }
+    });
+
+    document.addEventListener("copy", (e) => {
+      if (!e.target.closest("input, textarea")) {
+        e.preventDefault();
+        showToast("Content protected by LISTEN WITH SK");
+      }
+    });
+
     const API_BASE = "https://listen-with-sk.onrender.com";
     const FALLBACK_COVER = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%231b1b29'/%3E%3Ctext x='32' y='39' text-anchor='middle' font-family='Arial,sans-serif' font-weight='800' font-size='18' fill='%231db954'%3ESK%3C/text%3E%3C/svg%3E";
 
@@ -1189,6 +1367,10 @@
     const ICON_HEART_EMPTY = '<svg viewBox="0 0 24 24"><path d="M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3zm-4.4 15.55l-.1.1-.1-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04.99 3.57 2.36h1.87C13.46 5.99 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05z"/></svg>';
     const ICON_HEART_FULL = '<svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>';
     const ICON_DL = '<svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>';
+
+    const MORE_SUFFIXES = ["Latest Hits", "Top Songs", "Best Mix", "New Releases", "Superhits"];
+    let activeSearchQuery = "Trending Hindi Songs";
+    let loadMoreStep = 0;
 
     let searchResults = [];
     let likedSongs = JSON.parse(localStorage.getItem("sk_liked_songs") || "[]");
@@ -1221,6 +1403,8 @@
 
     const songList = document.getElementById("songList");
     const playlistControls = document.getElementById("playlistControls");
+    const loadMoreWrap = document.getElementById("loadMoreWrap");
+    const loadMoreBtn = document.getElementById("loadMoreBtn");
     const statusEl = document.getElementById("status");
     const serverBadge = document.getElementById("serverBadge");
     const categorySection = document.getElementById("categorySection");
@@ -1250,7 +1434,6 @@
     const currentTimeEl = document.getElementById("currentTime");
     const totalTimeEl = document.getElementById("totalTime");
 
-    // Full-Screen Player Refs
     const fullPlayer = document.getElementById("fullPlayer");
     const fpBgBlur = document.getElementById("fpBgBlur");
     const fpThumb = document.getElementById("fpThumb");
@@ -1276,6 +1459,11 @@
     const modalNewPlaylistInput = document.getElementById("modalNewPlaylistInput");
     const modalCreateAndAddBtn = document.getElementById("modalCreateAndAddBtn");
     const closeModalBtn = document.getElementById("closeModalBtn");
+
+    const infoModal = document.getElementById("infoModal");
+    const infoModalTitle = document.getElementById("infoModalTitle");
+    const infoModalSub = document.getElementById("infoModalSub");
+    const infoModalBody = document.getElementById("infoModalBody");
 
     playPauseBtn.innerHTML = ICON_PLAY;
     fpPlayPauseBtn.innerHTML = ICON_PLAY;
@@ -1373,11 +1561,14 @@
       const q = (customQuery || searchInput.value).trim();
       if (!q) return;
       if (customQuery) searchInput.value = customQuery;
+      activeSearchQuery = q;
+      loadMoreStep = 0;
       recentBox.classList.remove("open");
       if (!skipHistory) saveRecentSearch(q);
       setActiveChip(q);
 
       switchTab("discover");
+      loadMoreWrap.style.display = "none";
       statusEl.textContent = `"${q}" load ho raha hai...`;
       serverBadge.textContent = "Loading...";
 
@@ -1398,6 +1589,35 @@
       } catch (err) {
         statusEl.textContent = "Server wake up ho raha hai, 15 second baad dubara try karein.";
         serverBadge.textContent = "Waking...";
+      }
+    }
+
+    async function loadMoreSongs() {
+      if (loadMoreStep >= MORE_SUFFIXES.length) {
+        loadMoreWrap.style.display = "none";
+        return;
+      }
+      const nextQuery = `${activeSearchQuery} ${MORE_SUFFIXES[loadMoreStep]}`;
+      loadMoreStep++;
+      loadMoreBtn.disabled = true;
+      loadMoreBtn.textContent = "Loading more...";
+
+      try {
+        const res = await fetch(`${API_BASE}/api/search?q=${encodeURIComponent(nextQuery)}`);
+        const data = await res.json();
+        if (Array.isArray(data) && data.length) {
+          const existingIds = new Set(searchResults.map(s => s.id));
+          const fresh = data.filter(s => !existingIds.has(s.id));
+          searchResults = [...searchResults, ...fresh];
+          statusEl.textContent = `${activeSearchQuery} • ${searchResults.length} gaane`;
+          renderCurrentTab();
+        }
+      } catch (e) {}
+
+      loadMoreBtn.disabled = false;
+      loadMoreBtn.textContent = "+ Load More Songs";
+      if (loadMoreStep >= MORE_SUFFIXES.length) {
+        loadMoreWrap.style.display = "none";
       }
     }
 
@@ -1535,6 +1755,7 @@
     }
 
     function renderPlaylistsView() {
+      loadMoreWrap.style.display = "none";
       songList.innerHTML = "";
       if (selectedPlaylistName && playlists[selectedPlaylistName]) {
         const tracks = playlists[selectedPlaylistName];
@@ -1618,6 +1839,7 @@
         return;
       }
       if (currentTab === "liked") {
+        loadMoreWrap.style.display = "none";
         statusEl.textContent = likedSongs.length
           ? `Aapke ${likedSongs.length} liked gaane`
           : "Abhi koi liked song nahi hai. Heart icon par tap karke save karein.";
@@ -1625,6 +1847,7 @@
         return;
       }
       renderSongRows(searchResults, false);
+      loadMoreWrap.style.display = (searchResults.length > 0 && loadMoreStep < MORE_SUFFIXES.length) ? "block" : "none";
     }
 
     function playSong(index) {
@@ -1728,6 +1951,8 @@
       recentBox.classList.remove("open");
     });
 
+    loadMoreBtn.addEventListener("click", loadMoreSongs);
+
     tabDiscover.addEventListener("click", () => switchTab("discover"));
     tabPlaylists.addEventListener("click", () => switchTab("playlists"));
     tabLiked.addEventListener("click", () => switchTab("liked"));
@@ -1756,6 +1981,61 @@
         navigator.clipboard.writeText(shareText).catch(() => {});
       }
       showToast("Song link copied!");
+    });
+
+    // Footer Actions
+    document.getElementById("ftDiscoverBtn").addEventListener("click", () => {
+      switchTab("discover");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+    document.getElementById("ftPlaylistsBtn").addEventListener("click", () => {
+      switchTab("playlists");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+    document.getElementById("ftLikedBtn").addEventListener("click", () => {
+      switchTab("liked");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+    document.getElementById("ftTopBtn").addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+    document.getElementById("ftShareSiteBtn").addEventListener("click", async () => {
+      const siteUrl = window.location.href;
+      const shareText = `Listen free HD background music on LISTEN WITH SK: ${siteUrl}`;
+      if (navigator.share) {
+        try {
+          await navigator.share({ title: "LISTEN WITH SK", text: shareText, url: siteUrl });
+          return;
+        } catch (e) {}
+      }
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(siteUrl).catch(() => {});
+      }
+      showToast("Website link copied!");
+    });
+    document.getElementById("ftAboutBtn").addEventListener("click", () => {
+      infoModalTitle.textContent = "About LISTEN WITH SK";
+      infoModalSub.textContent = "Official HD Music Streaming App";
+      infoModalBody.innerHTML = `
+        <div class="info-card"><strong>Owner &amp; Developer:</strong> Suhail Khan</div>
+        <div class="info-card"><strong>Unlimited Search:</strong> Home par top trending gaane dikhte hain, aur search box mein koi bhi gaana ya artist search karke sun sakte hain.</div>
+        <div class="info-card"><strong>Free &amp; Fast:</strong> Bina kisi subscription ke HD background audio, custom playlists, aur queue support.</div>
+      `;
+      infoModal.classList.add("open");
+    });
+    document.getElementById("ftTipsBtn").addEventListener("click", () => {
+      infoModalTitle.textContent = "Quick App Tips";
+      infoModalSub.textContent = "LISTEN WITH SK ko full use kaise karein";
+      infoModalBody.innerHTML = `
+        <div class="info-card"><strong>Full-Screen Mode:</strong> Neeche mini-player ke song title ya cover par tap karein. Band karne ke liye swipe down ya upar Close dabayein.</div>
+        <div class="info-card"><strong>More Songs:</strong> Kisi bhi category ke neeche "+ Load More Songs" par tap karke aur tracks load karein.</div>
+        <div class="info-card"><strong>Sleep Timer &amp; Speed:</strong> Bottom player mein "Off" par tap karke 15m/30m/60m timer aur "1x" par tap karke speed badlein.</div>
+      `;
+      infoModal.classList.add("open");
+    });
+    document.getElementById("closeInfoModalBtn").addEventListener("click", () => infoModal.classList.remove("open"));
+    infoModal.addEventListener("click", (e) => {
+      if (e.target === infoModal) infoModal.classList.remove("open");
     });
 
     speedBtn.addEventListener("click", () => {
