@@ -8,10 +8,39 @@ from flask import Flask, request, jsonify, redirect, send_from_directory
 
 app = Flask(__name__)
 
+ALLOWED_ORIGINS = {
+    "https://listen-with-sk-official.github.io",
+    "https://listen-with-sk-official.blogspot.com",
+    "https://listen-with-sk.onrender.com",
+}
+
+
+def is_allowed_request():
+    origin = (request.headers.get("Origin") or "").rstrip("/")
+    referer = request.headers.get("Referer") or ""
+
+    if origin:
+        return origin in ALLOWED_ORIGINS
+
+    if referer:
+        return any(referer.startswith(allowed) for allowed in ALLOWED_ORIGINS)
+
+    return True
+
+
+@app.before_request
+def guard_api_routes():
+    if request.path.startswith("/api/"):
+        if not is_allowed_request():
+            return jsonify({"error": "Unauthorized origin"}), 403
+
 
 @app.after_request
 def add_cors(response):
-    response.headers["Access-Control-Allow-Origin"] = "*"
+    origin = (request.headers.get("Origin") or "").rstrip("/")
+    if origin in ALLOWED_ORIGINS:
+        response.headers["Access-Control-Allow-Origin"] = origin
+        response.headers["Vary"] = "Origin"
     return response
 
 
